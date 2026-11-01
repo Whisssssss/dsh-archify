@@ -1,0 +1,55 @@
+{
+  "name": "@whisssssss/dsh-archify",
+  "version": "1.0.0",
+  "description": "Community DeepSeek Harness Skill bundle for Archify: architecture, workflow, sequence, data-flow, lifecycle, ERD, class, tree, timeline and waterfall diagrams from one JSON spec (port of tt-a1i/archify).",
+  "license": "MIT",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "skills",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "release.json"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "dsh",
+    "agent-skill",
+    "architecture-diagram",
+    "diagram",
+    "sequence-diagram",
+    "workflow",
+    "dataflow",
+    "lifecycle",
+    "mermaid"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Whisssssss/dsh-archify.git",
+    "directory": "."
+  },
+  "homepage": "https://github.com/Whisssssss/dsh-archify",
+  "bugs": {
+    "url": "https://github.com/Whisssssss/dsh-archify/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
