@@ -256,17 +256,19 @@ function gitConfig(key) {
   return value;
 }
 
-function pushBranch(branch, remote, commit) {
-  const existing = git(['ls-remote', '--heads', remote, `refs/heads/${branch}`]);
+function pushBranch(branch, remote) {
+  const localRef = `refs/heads/${branch}`;
+  const remoteRef = `refs/heads/${branch}`;
+  const localSha = git(['rev-parse', localRef]);
+  const existing = git(['ls-remote', '--heads', remote, remoteRef]);
   const remoteSha = existing === '' ? undefined : existing.split(/\s+/)[0];
-  const refspec = `refs/heads/${branch}:refs/heads/${branch}`;
   if (remoteSha === undefined) {
-    git(['push', '--quiet', remote, `${commit}:${refspec}`]);
-    return { pushed: true, remoteRef: refspec, replaced: null };
+    git(['push', '--quiet', remote, `${localRef}:${remoteRef}`]);
+    return { pushed: true, remoteRef, replaced: null };
   }
-  if (remoteSha === commit) return { pushed: false, remoteRef: refspec, replaced: remoteSha };
-  git(['push', '--quiet', `--force-with-lease=refs/heads/${branch}:${remoteSha}`, remote, `${commit}:${refspec}`]);
-  return { pushed: true, remoteRef: refspec, replaced: remoteSha };
+  if (remoteSha === localSha) return { pushed: false, remoteRef, replaced: remoteSha };
+  git(['push', '--quiet', `--force-with-lease=${remoteRef}:${remoteSha}`, remote, `${localRef}:${remoteRef}`]);
+  return { pushed: true, remoteRef, replaced: remoteSha };
 }
 
 function main() {
@@ -294,7 +296,7 @@ function main() {
     let pushResult = { pushed: false, remoteRef: null, replaced: null };
     if (shouldPush) {
       if (dryRun) fail('--push cannot be combined with --dry-run');
-      pushResult = pushBranch(branch, remote, commit);
+      pushResult = pushBranch(branch, remote);
     }
     if (out !== undefined) {
       const outPath = path.resolve(out);
