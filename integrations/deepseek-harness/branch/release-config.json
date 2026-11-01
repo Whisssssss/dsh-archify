@@ -1,0 +1,8 @@
+{
+  "branch": "dsh",
+  "dshVersion": "0.2.1-rc.5",
+  "dshSupport": ">=0.2.0-rc.2",
+  "packageName": "@whisssssss/dsh-archify",
+  "upstreamPackageName": "@tt-a1i/archify-dsh",
+  "skillDir": "archify"
+}
